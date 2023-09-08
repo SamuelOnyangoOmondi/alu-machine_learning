@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
+
 """
 This module provides a function to determine the shape of a given matrix.
 """
 
+
 def matrix_shape(matrix):
     """
     Returns the shape of a matrix as a list of integers.
-    
+
     Parameters:
     - matrix: The matrix whose shape is to be determined.
 
