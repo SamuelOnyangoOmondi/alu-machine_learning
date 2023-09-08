@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 def matrix_shape(matrix):
     shape = []
-    while type(matrix) is list:  # Check if it's still a list (a dimension of the matrix)
+    while type(matrix) is list:  
         shape.append(len(matrix))
-        matrix = matrix[0]  # Dive deeper into the next dimension
+        matrix = matrix[0]  
     return shape
