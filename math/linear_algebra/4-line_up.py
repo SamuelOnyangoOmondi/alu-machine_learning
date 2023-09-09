@@ -3,8 +3,8 @@
 This module provides functionality to add two arrays element-wise.
 """
 
-# Removed the whitespace from the blank line before the function definition
-def add_arrays(arr1, arr2):
+
+def add_arrays(arr1, arr2):  # Two blank lines before this function definition
     """
     Adds two arrays element-wise.
     
