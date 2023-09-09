@@ -5,7 +5,6 @@ def np_shape(matrix):
     return matrix.shape
 
 # Test cases
-import numpy as np
 mat1 = np.array([1, 2, 3, 4, 5, 6])
 mat2 = np.array([])
 mat3 = np.array([[[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]],
