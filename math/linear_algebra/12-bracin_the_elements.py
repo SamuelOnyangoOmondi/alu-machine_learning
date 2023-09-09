@@ -1,22 +1,17 @@
 #!/usr/bin/env python3
 
-def elementwise_operation(op, mat1, mat2):
-    return list(
-        map(
-            lambda row1, row2: list(map(op, row1, row2)), 
-            mat1, 
-            [mat2 if isinstance(mat2[0], list) else [mat2]*len(mat1[0])]*len(mat1)
-        )
-    )
-
 def np_elementwise(mat1, mat2):
     """
     Perform element-wise addition, subtraction, multiplication, and division.
     """
-    add = elementwise_operation(lambda x, y: x + y, mat1, mat2)
-    sub = elementwise_operation(lambda x, y: x - y, mat1, mat2)
-    mul = elementwise_operation(lambda x, y: x * y, mat1, mat2)
-    div = elementwise_operation(lambda x, y: x / y, mat1, mat2)
+    
+    # Convert scalar mat2 to matrix form if necessary
+    mat2 = [mat2]*len(mat1) if not hasattr(mat2[0], '__len__') else mat2
+    
+    add = [[i + j for i, j in zip(row1, row2)] for row1, row2 in zip(mat1, mat2)]
+    sub = [[i - j for i, j in zip(row1, row2)] for row1, row2 in zip(mat1, mat2)]
+    mul = [[i * j for i, j in zip(row1, row2)] for row1, row2 in zip(mat1, mat2)]
+    div = [[i / j for i, j in zip(row1, row2)] for row1, row2 in zip(mat1, mat2)]
     
     return add, sub, mul, div
 
@@ -29,5 +24,5 @@ print(mat2)
 add, sub, mul, div = np_elementwise(mat1, mat2)
 print("Add:\n", add, "\nSub:\n", sub, "\nMul:\n", mul, "\nDiv:\n", div)
 
-add, sub, mul, div = np_elementwise(mat1, [2])
+add, sub, mul, div = np_elementwise(mat1, [2, 2, 2])
 print("Add:\n", add, "\nSub:\n", sub, "\nMul:\n", mul, "\nDiv:\n", div)
