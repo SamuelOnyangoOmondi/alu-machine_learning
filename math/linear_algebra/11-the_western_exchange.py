@@ -3,12 +3,13 @@
 This module provides a function to transpose a matrix.
 """
 
+
 def np_transpose(matrix):
     """
     Transposes the given matrix.
 
     Args:
-    - matrix: The input matrix, which is assumed to be a numpy ndarray based on external information.
+    - matrix: The input matrix, numpy ndarray based on external information.
 
     Returns:
     - The transposed matrix.
