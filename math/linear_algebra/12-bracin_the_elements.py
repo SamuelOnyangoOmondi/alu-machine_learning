@@ -3,15 +3,16 @@
 def np_elementwise(mat1, mat2):
     """Perform element-wise operations on mat1 and mat2."""
     
-    def operate(x, y, operation):
-        return list(map(operation, x, y))
+    # Assuming the matrices are always 2D
+    def operate(row1, row2, operation):
+        return list(map(operation, row1, row2))
 
-    mat2_broadcast = [operate(row, [mat2]*len(row), lambda a, b: b) if isinstance(mat2, int) else mat2 for row in mat1]
+    mat2_broadcast = mat2 if isinstance(mat2[0], list) else [[mat2] * len(mat1[0])] * len(mat1)
 
-    add = operate(mat1, mat2_broadcast, lambda x, y: operate(x, y, lambda a, b: a + b))
-    sub = operate(mat1, mat2_broadcast, lambda x, y: operate(x, y, lambda a, b: a - b))
-    mul = operate(mat1, mat2_broadcast, lambda x, y: operate(x, y, lambda a, b: a * b))
-    div = operate(mat1, mat2_broadcast, lambda x, y: operate(x, y, lambda a, b: a / b))
+    add = list(map(lambda x, y: operate(x, y, lambda a, b: a + b), mat1, mat2_broadcast))
+    sub = list(map(lambda x, y: operate(x, y, lambda a, b: a - b), mat1, mat2_broadcast))
+    mul = list(map(lambda x, y: operate(x, y, lambda a, b: a * b), mat1, mat2_broadcast))
+    div = list(map(lambda x, y: operate(x, y, lambda a, b: a / b), mat1, mat2_broadcast))
 
     return add, sub, mul, div
 
