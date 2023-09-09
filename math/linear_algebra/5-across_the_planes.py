@@ -8,7 +8,6 @@ Module provides functionality to add two 2D matrices element-wise.
 def add_matrices2D(mat1, mat2):
     """
     Adds two 2D matrices element-wise.
-    
     Parameters:
     - mat1: First 2D matrix of ints/floats.
     - mat2: Second 2D matrix of ints/floats.
