@@ -3,13 +3,12 @@
 This module provides a function to retrieve the shape of a numpy matrix.
 """
 
+
 def np_shape(matrix):
     """
     Returns the shape of the given matrix.
-    
     Args:
     - matrix (numpy.ndarray): The input matrix.
-    
     Returns:
     - tuple: The shape of the matrix.
     """
