@@ -4,6 +4,7 @@
 This module provides a function to concatenate two lists of integers or floats.
 """
 
+
 def cat_arrays(arr1, arr2):
     """
     Concatenates two lists.
