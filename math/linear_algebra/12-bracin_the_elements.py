@@ -3,16 +3,13 @@
 def np_elementwise(mat1, mat2):
     """Perform element-wise operations on mat1 and mat2."""
     
-    # Assuming the matrices are always 2D
-    def operate(row1, row2, operation):
-        return list(map(operation, row1, row2))
+    # Broadcasting mat2 if it's a scalar.
+    mat2_broadcast = [[mat2] * len(mat1[0])] * len(mat1)
 
-    mat2_broadcast = mat2 if isinstance(mat2[0], list) else [[mat2] * len(mat1[0])] * len(mat1)
-
-    add = list(map(lambda x, y: operate(x, y, lambda a, b: a + b), mat1, mat2_broadcast))
-    sub = list(map(lambda x, y: operate(x, y, lambda a, b: a - b), mat1, mat2_broadcast))
-    mul = list(map(lambda x, y: operate(x, y, lambda a, b: a * b), mat1, mat2_broadcast))
-    div = list(map(lambda x, y: operate(x, y, lambda a, b: a / b), mat1, mat2_broadcast))
+    add = list(map(lambda x, y: list(map(lambda a, b: a + b, x, (y if isinstance(mat2[0], list) else mat2_broadcast))), mat1, mat2))
+    sub = list(map(lambda x, y: list(map(lambda a, b: a - b, x, (y if isinstance(mat2[0], list) else mat2_broadcast))), mat1, mat2))
+    mul = list(map(lambda x, y: list(map(lambda a, b: a * b, x, (y if isinstance(mat2[0], list) else mat2_broadcast))), mat1, mat2))
+    div = list(map(lambda x, y: list(map(lambda a, b: a / b, x, (y if isinstance(mat2[0], list) else mat2_broadcast))), mat1, mat2))
 
     return add, sub, mul, div
 
