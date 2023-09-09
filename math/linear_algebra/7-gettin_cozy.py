@@ -10,7 +10,6 @@ def cat_matrices2D(mat1, mat2, axis=0):
     """
     Concatenates two matrices along a specific axis.
     """
-    
     # If axis is 0 (vertical concatenation)
     if axis == 0:
         # Check if number of columns is the same in both matrices
@@ -24,7 +23,6 @@ def cat_matrices2D(mat1, mat2, axis=0):
         if len(mat1) != len(mat2):
             return None
         return [row1 + row2 for row1, row2 in zip(mat1, mat2)]
-    
     # For any other value of axis, return None
     else:
         return None
@@ -39,7 +37,6 @@ if __name__ == "__main__":
     mat5 = cat_matrices2D(mat1, mat3, axis=1)
     print(mat4)
     print(mat5)
-    
     # Modifying the original matrices to show that
     # the new matrices are independent
     mat1[0] = [9, 10]
