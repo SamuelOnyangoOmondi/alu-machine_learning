@@ -3,7 +3,6 @@
 This module provides functionality to add two arrays element-wise.
 """
 
-
 def add_arrays(arr1, arr2):  # Two blank lines before this function definition
     """
     Adds two arrays element-wise.
