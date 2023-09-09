@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
+def operate_elementwise(a, b, operation):
+    return list(map(lambda x, y: operation(x, y), a, b))
+
 def np_elementwise(mat1, mat2):
     """Perform element-wise operations on mat1 and mat2"""
-    
-    # Handle the scenario where mat2 is just a scalar (like 2) and not a matrix
-    if isinstance(mat2, (int, float)):
-        mat2 = [[mat2 for _ in row] for row in mat1]
 
-    add = [[row1[i] + row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
-    sub = [[row1[i] - row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
-    mul = [[row1[i] * row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
-    div = [[row1[i] / row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
+    # Assuming that if mat2 is a scalar, it has the same length and shape as mat1
+    mat2 = mat2 if isinstance(mat2[0], list) else [[mat2]*len(mat1[0])]*len(mat1)
+
+    add = operate_elementwise(mat1, mat2, lambda x, y: list(map(lambda a, b: a + b, x, y)))
+    sub = operate_elementwise(mat1, mat2, lambda x, y: list(map(lambda a, b: a - b, x, y)))
+    mul = operate_elementwise(mat1, mat2, lambda x, y: list(map(lambda a, b: a * b, x, y)))
+    div = operate_elementwise(mat1, mat2, lambda x, y: list(map(lambda a, b: a / b, x, y)))
 
     return add, sub, mul, div
 
