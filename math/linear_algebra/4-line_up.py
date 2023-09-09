@@ -3,8 +3,7 @@
 This module provides functionality to add two arrays element-wise.
 """
 
-
-# Two blank lines now after the docstring and no spaces/tabs on the blank line
+# Removed the whitespace from the blank line before the function definition
 def add_arrays(arr1, arr2):
     """
     Adds two arrays element-wise.
