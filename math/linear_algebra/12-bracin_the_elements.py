@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 
 def elementwise_operation(op, mat1, mat2):
-    if isinstance(mat2, (int, float)):  # Check if mat2 is a scalar
-        return list(map(lambda row: list(map(op, row, [mat2]*len(row))), mat1))
-    return list(map(lambda row1, row2: list(map(op, row1, row2)), mat1, mat2))
+    return list(
+        map(
+            lambda row1, row2: list(map(op, row1, row2)), 
+            mat1, 
+            [mat2 if isinstance(mat2[0], list) else [mat2]*len(mat1[0])]*len(mat1)
+        )
+    )
 
 def np_elementwise(mat1, mat2):
     """
@@ -25,5 +29,5 @@ print(mat2)
 add, sub, mul, div = np_elementwise(mat1, mat2)
 print("Add:\n", add, "\nSub:\n", sub, "\nMul:\n", mul, "\nDiv:\n", div)
 
-add, sub, mul, div = np_elementwise(mat1, 2)
+add, sub, mul, div = np_elementwise(mat1, [2])
 print("Add:\n", add, "\nSub:\n", sub, "\nMul:\n", mul, "\nDiv:\n", div)
