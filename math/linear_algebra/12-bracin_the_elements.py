@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 
-import numpy as np
-
 def np_elementwise(mat1, mat2):
     """Perform element-wise operations on mat1 and mat2"""
-    # Element-wise addition
-    add = np.add(mat1, mat2)
-    # Element-wise subtraction
-    sub = np.subtract(mat1, mat2)
-    # Element-wise multiplication
-    mul = np.multiply(mat1, mat2)
-    # Element-wise division (using numpy's division which handles divide by zero gracefully by returning 'inf')
-    div = np.divide(mat1, mat2)
     
+    # Handle the scenario where mat2 is just a scalar (like 2) and not a matrix
+    if isinstance(mat2, (int, float)):
+        mat2 = [[mat2 for _ in row] for row in mat1]
+
+    add = [[row1[i] + row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
+    sub = [[row1[i] - row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
+    mul = [[row1[i] * row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
+    div = [[row1[i] / row2[i] for i in range(len(row1))] for row1, row2 in zip(mat1, mat2)]
+
     return add, sub, mul, div
 
-mat1 = np.array([[11, 22, 33], [44, 55, 66]])
-mat2 = np.array([[1, 2, 3], [4, 5, 6]])
+mat1 = [[11, 22, 33], [44, 55, 66]]
+mat2 = [[1, 2, 3], [4, 5, 6]]
 
 print(mat1)
 print(mat2)
