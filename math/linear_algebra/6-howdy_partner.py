@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+This module provides a function to concatenate two lists of integers or floats.
+"""
+
 def cat_arrays(arr1, arr2):
     """
     Concatenates two lists.
@@ -12,6 +16,7 @@ def cat_arrays(arr1, arr2):
     - A new list that represents the concatenation of the two input lists.
     """
     return arr1 + arr2
+
 
 # Testing the function
 if __name__ == "__main__":
