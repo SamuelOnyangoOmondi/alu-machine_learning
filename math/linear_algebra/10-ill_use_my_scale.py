@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
 def np_shape(matrix):
-    """Return the shape of a simulated numpy ndarray."""
-    shape = []
-    while isinstance(matrix, list):
-        shape.append(len(matrix))
-        matrix = matrix[0] if matrix else []
-    return tuple(shape)
+    """Return the shape of a simulated numpy ndarray using recursion."""
+    if not isinstance(matrix, list):
+        return ()
+    return (len(matrix),) + np_shape(matrix[0]) if matrix else ()
 
 # Test cases
 mat1 = [1, 2, 3, 4, 5, 6]
