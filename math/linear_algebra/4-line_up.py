@@ -7,8 +7,7 @@ This module provides functionality to add two arrays element-wise.
 def add_arrays(arr1, arr2):
     """
     Adds two arrays element-wise.
-    
-    Parameters:
+        Parameters:
     - arr1: First list of ints/floats.
     - arr2: Second list of ints/floats.
 
