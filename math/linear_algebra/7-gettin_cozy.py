@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 
 """
-This module provides functionality to concatenate two 2D matrices along a specific axis.
+This module provides functionality to concatenate two 2D matrices
+along a specific axis.
 """
 
+
 def cat_matrices2D(mat1, mat2, axis=0):
-    """Concatenates two matrices along a specific axis."""
+    """
+    Concatenates two matrices along a specific axis.
+    """
     
     # If axis is 0 (vertical concatenation)
     if axis == 0:
@@ -36,7 +40,8 @@ if __name__ == "__main__":
     print(mat4)
     print(mat5)
     
-    # Modifying the original matrices to show that the new matrices are independent
+    # Modifying the original matrices to show that
+    # the new matrices are independent
     mat1[0] = [9, 10]
     mat1[1].append(5)
     print(mat1)
