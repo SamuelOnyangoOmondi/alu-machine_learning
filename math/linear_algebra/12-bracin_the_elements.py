@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
 
-def operate(r1, r2):
-    return (
-        list(map(lambda x, y: x + y, r1, r2)),
-        list(map(lambda x, y: x - y, r1, r2)),
-        list(map(lambda x, y: x * y, r1, r2)),
-        list(map(lambda x, y: x / y, r1, r2))
-    )
-
 def np_elementwise(mat1, mat2):
     """
     Perform element-wise operations on two matrices.
@@ -19,16 +11,17 @@ def np_elementwise(mat1, mat2):
     Returns:
     - tuple: A tuple containing matrices resulting from element-wise sum, difference, product, and quotient
     """
-    
-    # Check if mat2 is a scalar
-    mat2 = mat2 if isinstance(mat2[0], list) else [[mat2]*len(mat1[0])]*len(mat1)
-    
-    result = list(zip(*list(map(operate, mat1, mat2))))
 
-    return ([list(item) for item in result[0]],
-            [list(item) for item in result[1]],
-            [list(item) for item in result[2]],
-            [list(item) for item in result[3]])
+    # Convert mat2 to matrix if scalar
+    mat2 = [[mat2 for _ in mat1[0]] for _ in mat1] if isinstance(mat2, (int, float)) else mat2
+
+    # Element-wise operations
+    add = list(map(lambda x: list(map(lambda y, z: y + z, x[0], x[1])), zip(mat1, mat2)))
+    sub = list(map(lambda x: list(map(lambda y, z: y - z, x[0], x[1])), zip(mat1, mat2)))
+    mul = list(map(lambda x: list(map(lambda y, z: y * z, x[0], x[1])), zip(mat1, mat2)))
+    div = list(map(lambda x: list(map(lambda y, z: y / z, x[0], x[1])), zip(mat1, mat2)))
+
+    return (add, sub, mul, div)
 
 # Given code
 mat1 = [[11, 22, 33], [44, 55, 66]]
