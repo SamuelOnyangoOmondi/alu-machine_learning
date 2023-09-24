@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def poly_integral(poly, C=0):
     if not all(isinstance(coef, (int, float)) for coef in poly) or not isinstance(C, (int, float)):
         return None
