@@ -9,9 +9,8 @@ where the index of each coefficient corresponds to the power of x.
 def poly_derivative(poly):
     """
     Calculates the derivative of a polynomial.
-    
     :param poly: List of coefficients representing a polynomial.
-                 The index represents the power of x that the coefficient belongs to.
+    The index represents the power of x 
     :type poly: list
     :return: New list of coefficients representing the derivative.
     :rtype: list or None
@@ -20,10 +19,7 @@ def poly_derivative(poly):
         isinstance(coef, (int, float)) for coef in poly
     ):
         return None
-    
     if len(poly) == 1:
         return [0]  # the derivative of a constant is 0
-    
     derivative = [poly[i] * i for i in range(1, len(poly))]
-    
     return derivative
