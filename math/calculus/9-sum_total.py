@@ -8,7 +8,6 @@ the summation of i^2 from 1 to n
 def summation_i_squared(n):
     """
     Calculates the summation of i^2 from 1 to n.
-    
     :param n: stopping condition, must be a valid number
     :type n: int or float
     :return: Integer value of the sum or None if n is not a valid number
