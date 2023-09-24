@@ -10,7 +10,7 @@ def poly_derivative(poly):
     """
     Calculates the derivative of a polynomial.
     :param poly: List of coefficients representing a polynomial.
-    The index represents the power of x 
+    The index represents the power of x
     :type poly: list
     :return: New list of coefficients representing the derivative.
     :rtype: list or None
