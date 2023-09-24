@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def poly_derivative(poly):
     """
     Calculates the derivative of a polynomial.
