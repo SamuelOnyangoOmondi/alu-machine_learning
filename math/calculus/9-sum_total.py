@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-This module contains a function that calculates the summation of i^2 from 1 to n
+This module contains a function that calculates
+the summation of i^2 from 1 to n
 """
+
 
 def summation_i_squared(n):
     """
-    Calculates the summation of i^2 from 1 to n
+    Calculates the summation of i^2 from 1 to n.
     
     :param n: stopping condition, must be a valid number
     :type n: int or float
