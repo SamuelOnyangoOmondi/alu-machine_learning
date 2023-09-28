@@ -12,17 +12,15 @@ class Poisson:
                 raise ValueError("data must contain multiple values")
             self.lambtha = float(sum(data) / len(data))
 
-    @staticmethod
-    def poisson_distribution(k, lambtha):
-        from math import exp
-        from math import factorial
-
-        return (lambtha ** k) * exp(-lambtha) / factorial(k)
-
-    def pdf(self, k):
+    def poisson_distribution(self, k):
         if k < 0:
             return 0
-        return self.poisson_distribution(k, self.lambtha)
+        from math import exp
+        from math import factorial
+        return (self.lambtha ** k) * exp(-self.lambtha) / factorial(k)
+
+    def pdf(self, k):
+        return self.poisson_distribution(k)
 
 if __name__ == "__main__":
     p1 = Poisson(data=[4, 5, 6, 7, 8])
