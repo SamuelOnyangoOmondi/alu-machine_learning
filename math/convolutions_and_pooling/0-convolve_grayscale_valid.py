@@ -14,11 +14,18 @@ def convolve_grayscale_valid(images, kernel):
     """
     m, h, w = images.shape
     kh, kw = kernel.shape
-    convolved_images = np.zeros((m, h - kh + 1, w - kw + 1), dtype=np.float32)
 
+    # Calculate the output shape
+    out_h = h - kh + 1
+    out_w = w - kw + 1
+
+    # Initialize an array to store the convolved images
+    convolved_images = np.zeros((m, out_h, out_w), dtype=np.float32)
+
+    # Iterate through each image and perform the convolution
     for i in range(m):
-        for j in range(h - kh + 1):
-            for k in range(w - kw + 1):
+        for j in range(out_h):
+            for k in range(out_w):
                 # Extract the region from the image
                 image_region = images[i, j:j+kh, k:k+kw]
                 # Perform element-wise multiplication and sum
