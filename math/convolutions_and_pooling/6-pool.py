@@ -1,25 +1,42 @@
 #!/usr/bin/env python3
 
+"""
+This module has the method that performs
+pooling on images
+"""
 import numpy as np
 
 
 def pool(images, kernel_shape, stride, mode='max'):
+    """
+    pooling on images
+    c - no. of channels
+    """
     m, h, w, c = images.shape
-    fh, fw = kernel_shape
+    kh, kw = kernel_shape
     sh, sw = stride
-    nh = (h - fh) // sh + 1
-    nw = (w - fw) // sw + 1
-    pooling = np.zeros((m, nh, nw, c))
 
-    for i in range(nh):
-        h_start = i * sh
-        h_end = h_start + fh
-        for j in range(nw):
-            w_start = j * sw
-            w_end = w_start + fw
-            images_slice = images[:, h_start:h_end, w_start:w_end, :]
+    # Calculate the output dimensions
+    oh = int((h - kh) / sh) + 1
+    ow = int((w - kw) / sw) + 1
+
+    # Initialize the output tensor
+    pooled_images = np.zeros((m, oh, ow, c))
+
+    for i in range(oh):
+        for j in range(ow):
+            # Extract a patch from the image
+            patch = images[:, i * sh:i * sh + kh, j * sw:j * sw + kw, :]
+
+            # Apply pooling based on the specified mode
             if mode == 'max':
-                pooling[:, i, j, :] = np.max(images_slice, axis=(1, 2))
+                pooled_patch = np.max(patch, axis=(1, 2))
             elif mode == 'avg':
-                pooling[:, i, j, :] = np.mean(images_slice, axis=(1, 2))
-    return pooling
+                pooled_patch = np.mean(patch, axis=(1, 2))
+            else:
+                raise ValueError("Invalid pooling mode. Use 'max' or 'avg'.")
+
+            # Store the pooled patch in the output
+            pooled_images[:, i, j, :] = pooled_patch
+
+    return pooled_images
