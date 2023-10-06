@@ -4,6 +4,18 @@ import numpy as np
 
 
 def convolve(images, kernels, padding='same', stride=(1, 1)):
+    """
+    Perform a convolution operation on input images using the given kernels.
+
+    Args:
+        images (numpy.ndarray): Input images with shape (m, h, w, c).
+        kernels (numpy.ndarray): Convolution kernels with shape (fh, fw, c, nc).
+        padding (str or tuple): Padding mode ('same', 'valid', or tuple (ph, pw)).
+        stride (tuple): Stride for the convolution operation (sh, sw).
+
+    Returns:
+        numpy.ndarray: Convolved images with shape (m, nh, nw, nc).
+    """
     m, h, w, _ = images.shape
     fh, fw, _, c = kernels.shape
     sh, sw = stride
