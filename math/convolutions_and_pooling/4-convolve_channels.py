@@ -31,5 +31,5 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
             w_start = j * sw
             w_end = w_start + fw
             images_slice = images[:, h_start:h_end, w_start:w_end]
-            convolution[:, i, j] = np.sum(images_slice*kernel,axis=(1, 2, 3))
+            convolution[:, i, j] = np.sum(images_slice*kernel, axis=(1, 2, 3))
     return convolution
