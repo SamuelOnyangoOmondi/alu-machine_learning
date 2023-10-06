@@ -32,5 +32,6 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
             w_end = w_start + fw
             images_slice = images[:, h_start:h_end, w_start:w_end]
             for k in range(c):
-                convolution[:, i, j, k] = np.sum(images_slice*kernels[:, :, :, k],axis=(1, 2, 3))
+                convolution[:, i, j, k] = np.sum(images_slice*kernels[:, :, :, k], 
+                                                 axis=(1, 2, 3))
     return convolution
