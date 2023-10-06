@@ -9,8 +9,10 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
 
     Args:
         images (numpy.ndarray): Input images with shape (m, h, w, c).
-        kernels (numpy.ndarray): Convolution kernels with shape (fh, fw, c, nc).
-        padding (str or tuple): Padding mode ('same', 'valid', or tuple (ph, pw)).
+        kernels (numpy.ndarray): Convolution kernels with shape
+        (fh, fw, c, nc).
+        padding (str or tuple): Padding mode 
+        ('same', 'valid', or tuple (ph, pw)).
         stride (tuple): Stride for the convolution operation (sh, sw).
 
     Returns:
