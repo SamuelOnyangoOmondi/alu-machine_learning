@@ -12,7 +12,7 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
         nh, nw = h, w
         ph = int((fh + (sh * (h - 1)) - h) / 2 + 0.5)
         pw = int((fw + (sw * (w - 1)) - w) / 2 + 0.5)
-        images = np.pad(images, 
+        images = np.pad(images,
                         ((0, 0), (ph, ph), (pw, pw), (0, 0)), 'constant')
     elif padding == 'valid':
         nh = ((h - fh) // sh) + 1
@@ -21,7 +21,7 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
         ph, pw = padding
         nh = ((h - fh + (2 * ph)) // sh) + 1
         nw = ((w - fw + (2 * pw)) // sw) + 1
-        images = np.pad(images, 
+        images = np.pad(images,
                         ((0, 0), (ph, ph), (pw, pw), (0, 0)), 'constant')
     convolution = np.zeros((m, nh, nw, c))
     for i in range(nh):
@@ -32,5 +32,6 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
             w_end = w_start + fw
             images_slice = images[:, h_start:h_end, w_start:w_end]
             for k in range(c):
-                convolution[:, i, j, k] = np.sum(images_slice*kernels[:, :, :, k], axis=(1, 2, 3))
+                convolution[:, i, j, k] =
+                np.sum(images_slice*kernels[:, :, :, k], axis=(1, 2, 3))
     return convolution
