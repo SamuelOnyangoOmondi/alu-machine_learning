@@ -2,6 +2,7 @@
 
 import numpy as np
 
+
 def convolve_grayscale_same(images, kernel):
     m, h, w = images.shape
     fh, fw = kernel.shape
