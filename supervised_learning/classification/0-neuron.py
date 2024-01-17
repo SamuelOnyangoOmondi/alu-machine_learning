@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
-"""
-This module defines the Neuron class for binary classification. The Neuron class
-represents a single neuron with capabilities to perform binary classification tasks.
-It includes initialization of weights, bias, and activation output based on the number
-of input features provided.
-"""
-
 import numpy as np
 
 
 class Neuron:
+    """
+    Represents a single neuron performing binary classification.
+
+    Attributes:
+    W (numpy.ndarray): The weights vector for the neuron. Initialized with a random normal distribution.
+    b (float): The bias for the neuron. Initialized to 0.
+    A (int): The activated output of the neuron (prediction). Initialized to 0.
+
+    Methods:
+    __init__(self, nx): Initializes the neuron with nx input features.
+    """
     def __init__(self, nx):
         if type(nx) != int:
             raise TypeError("nx must be an integer")
