@@ -1,26 +1,29 @@
 #!/usr/bin/env python3
+"""This module is of a single perfoming classification"""
 import numpy as np
 
 
 class Neuron:
+    """class that defines a single neuron performing classification"""
+
     def __init__(self, nx):
-        if type(nx) != int:
+        """class constructor
+        """
+        # nx - no. of input features to the neuron
+        if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
 
-        self.W = np.random.randn(1, nx)
+        # Mean and standard deviation
+        mean = 0
+        std_dev = 1
+
+        # Generate a random number from a normal distribution
+        self.W = np.random.normal(0, 1, (nx, 1))
+
+        # b - bias of the neuron
         self.b = 0
+
+        # A - activated output of the neuron(Prediction)
         self.A = 0
-
-
-# Usage example
-if __name__ == "__main__":
-    np.random.seed(0)
-    neuron = Neuron(784)
-    print(neuron.W)
-    print(neuron.W.shape)
-    print(neuron.b)
-    print(neuron.A)
-    neuron.A = 10
-    print(neuron.A)
