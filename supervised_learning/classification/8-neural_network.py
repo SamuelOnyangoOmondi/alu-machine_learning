@@ -20,6 +20,7 @@ class NeuralNetwork:
         self.b2 = 0
         self.A2 = 0
 
+
 # Usage example
 if __name__ == "__main__":
     np.random.seed(0)
@@ -32,5 +33,8 @@ if __name__ == "__main__":
     print(nn.b2)
     print(nn.A1)
     print(nn.A2)
-    nn.A1 = 10  # This will work but it's generally not good practice to modify attributes directly
+    # Breaking the following line into two lines to adhere to PEP 8
+    # Original line: nn.A1 = 10  # This will work but it's generally not good practice to modify attributes directly
+    nn.A1 = 10
     print(nn.A1)
+
