@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+"""
+This module defines the Neuron class for binary classification. The Neuron class
+represents a single neuron with capabilities to perform binary classification tasks.
+It includes initialization of weights, bias, and activation output based on the number
+of input features provided.
+"""
+
 import numpy as np
 
 
@@ -12,7 +19,6 @@ class Neuron:
         self.W = np.random.randn(1, nx)
         self.b = 0
         self.A = 0
-
 
 # Usage example
 if __name__ == "__main__":
