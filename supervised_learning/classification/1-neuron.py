@@ -1,40 +1,59 @@
 #!/usr/bin/env python3
+"""This module is of a binary classification"""
 import numpy as np
 
 
 class Neuron:
+    """class that defines a single neuron perfoming binary classification"""
+
     def __init__(self, nx):
-        if type(nx) != int:
-            raise TypeError("nx must be an integer")
+        """ class construtor"""
+
+        # nx - no. of input features to the neuron
+        if not isinstance(nx, int):
+            raise TypeError("nx must be a integer")
         if nx < 1:
             raise ValueError("nx must be positive")
 
-        self.__W = np.random.randn(1, nx)
+        # w - weights vector of the neuron
+        self.__W = np.random.normal(0, 1, (nx, 1))
+
+        # Initialize the bias the neuron
         self.__b = 0
+
+        # Initialize the activated output of the neuron (Prediction)
         self.__A = 0
 
+    # getter function
     @property
     def W(self):
-        """Getter for private attribute __W."""
+        """getter function"""
         return self.__W
+
+    # # setter function
+    # @W.setter
+    # def W(self, value):
+    #     """setter function"""
+    #     self.__W = value
 
     @property
     def b(self):
-        """Getter for private attribute __b."""
+        """getter function"""
         return self.__b
+
+    # # setter function
+    # @b.setter
+    # def b(self, value):
+    #     """setter function"""
+    #     self.__b = value
 
     @property
     def A(self):
-        """Getter for private attribute __A."""
+        """getter function"""
         return self.__A
 
-
-# Usage example
-if __name__ == "__main__":
-    np.random.seed(0)
-    neuron = Neuron(784)
-    print(neuron.W)
-    print(neuron.b)
-    print(neuron.A)
-    # The following line will raise an AttributeError
-    # neuron.A = 10
+    # # setter function
+    # @A.setter
+    # def A(self, value):
+    #     """setter function"""
+    #     self.__A = value
