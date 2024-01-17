@@ -9,24 +9,25 @@ class Neuron:
         if nx < 1:
             raise ValueError("nx must be positive")
 
-        self.__W = np.random.randn(1, nx)  # Private attribute
-        self.__b = 0                        # Private attribute
-        self.__A = 0                        # Private attribute
+        self.__W = np.random.randn(1, nx)
+        self.__b = 0
+        self.__A = 0
 
     @property
     def W(self):
-        """ Getter for private attribute __W """
+        """Getter for private attribute __W."""
         return self.__W
 
     @property
     def b(self):
-        """ Getter for private attribute __b """
+        """Getter for private attribute __b."""
         return self.__b
 
     @property
     def A(self):
-        """ Getter for private attribute __A """
+        """Getter for private attribute __A."""
         return self.__A
+
 
 # Usage example
 if __name__ == "__main__":
@@ -35,6 +36,5 @@ if __name__ == "__main__":
     print(neuron.W)
     print(neuron.b)
     print(neuron.A)
-    
-    # The following line will raise an AttributeError, because __A is private and has no setter
+    # The following line will raise an AttributeError
     # neuron.A = 10
