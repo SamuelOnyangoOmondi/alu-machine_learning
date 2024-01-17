@@ -44,6 +44,7 @@ class Neuron:
         self.__W = self.__W - alpha * dw.T
         self.__b = self.__b - alpha * db
 
+
 # Usage example
 if __name__ == "__main__":
     np.random.seed(0)
