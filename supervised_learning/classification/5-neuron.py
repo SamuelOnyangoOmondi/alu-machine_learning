@@ -4,108 +4,53 @@ import numpy as np
 
 
 class Neuron:
-    """class that defines a single neuron perfoming binary classification"""
-
     def __init__(self, nx):
-        """ class construtor"""
-
-        # nx - no. of input features to the neuron
-        if not isinstance(nx, int):
-            raise TypeError("nx must be a integer")
+        if type(nx) != int:
+            raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be positive")
 
-        # w - weights vector of the neuron
-        self.__W = np.random.normal(0, 1, (nx, 1))
-
-        # Initialize the bias the neuron
+        self.__W = np.random.randn(1, nx)
         self.__b = 0
-
-        # Initialize the activated output of the neuron (Prediction)
         self.__A = 0
 
-    # getter function
     @property
     def W(self):
-        """getter function"""
+        """Getter for W."""
         return self.__W
-
-    # # setter function
-    # @W.setter
-    # def W(self, value):
-    #     """setter function"""
-    #     self.__W = value
 
     @property
     def b(self):
-        """getter function"""
+        """Getter for b."""
         return self.__b
-
-    # # setter function
-    # @b.setter
-    # def b(self, value):
-    #     """setter function"""
-    #     self.__b = value
 
     @property
     def A(self):
-        """getter function"""
+        """Getter for A."""
         return self.__A
-
-    # # setter function
-    # @A.setter
-    # def A(self, value):
-    #     """setter function"""
-    #     self.__A = value
 
     def forward_prop(self, X):
-        """calculating forward propagation of the neuron"""
-        # X - a np.ndarray of shape (nx, m)
-        # nx - input features to the neuron
-        # m - no. of examples
-
-        # weighted sum
-        weighted_sum = np.dot(self.__W.T, X) + self.__b
-        # applying activation function
-        self.__A = 1/(1 + np.exp(-weighted_sum))
-
+        """Add forward propagation (from previous tasks if necessary)"""
+        z = np.dot(self.__W, X) + self.__b
+        self.__A = 1 / (1 + np.exp(-z))
         return self.__A
 
-    def cost(self, Y, A):
-        """ calculates cost of the model using logistic regression
-        Y - contains correct labels of input data
-        A - contains activated output of the neuron"""
-        m = Y.shape[1]
-        cost = -(1 / m) * np.sum(Y * np.log(A) +
-                                 (1 - Y) * np.log(1.0000001 - A))
-        return cost
-
-    def evaluate(self, X, Y):
-        """evaluating neuron's predictions
-        X - np.ndarray of shape (nx, m) contains input data
-        Y - np.ndarray of shape (1, m) contains correct labels for input data
-        """
-
-        A = self.forward_prop(X)
-        cost = self.cost(Y, A)
-        predictions = (A >= 0.5).astype(int)
-        accuracy = np.mean(predictions == Y)
-        return predictions, cost
-
     def gradient_descent(self, X, Y, A, alpha=0.05):
-        """calculates one pass of gradient descent on the neuron
-        X - np.ndarray of shape (nx, m) contains input data
-        Y - np.ndarray of shape (1, m) contains correct labels for input data
-        A - contains activated output of the neuron
-        alpha - learning rate
-        """
-        #  w = w - alpha*dw
-        # w = w - alpha*d(w, b)/dw
-        # b = b - alpha * d(w, b) / db
-        m = X.shape[1]  # examples
-        dw = np.dot(X, (A - Y).T) / m
-        db = np.sum(A - Y) / m
+        """Performs a single pass of gradient descent on the neuron."""
+        m = Y.shape[1]
+        dz = A - Y
+        dw = np.dot(X, dz.T) / m
+        db = np.sum(dz) / m
+        self.__W = self.__W - alpha * dw.T
+        self.__b = self.__b - alpha * db
 
-        # updating weights and bias
-        self.__W = self.__W - alpha*dw
-        self.__b = self.__b - alpha*db
+# Usage example
+if __name__ == "__main__":
+    np.random.seed(0)
+    neuron = Neuron(784)
+    X = np.random.randn(784, 1)  # Example input
+    Y = np.array([[1]])          # Example label
+    A = neuron.forward_prop(X)
+    neuron.gradient_descent(X, Y, A, 0.5)
+    print(neuron.W)
+    print(neuron.b)
