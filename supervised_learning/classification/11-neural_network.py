@@ -78,7 +78,7 @@ class NeuralNetwork:
         sigmoid = 1 / (1 + np.exp(-z))
         self.__A2 = sigmoid
         return self.__A1, self.__A2
-        
+
     def cost(self, Y, A):
         """ Calculates the cost of the model using logistic regression
 
