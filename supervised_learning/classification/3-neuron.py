@@ -1,81 +1,76 @@
 #!/usr/bin/env python3
-"""This module is of a binary classification"""
+"""Class Neuron that defines a single neuron performing binary classification
+"""
+
+
 import numpy as np
 
 
 class Neuron:
-    """class that defines a single neuron perfoming binary classification"""
+    """ Class Neuron
+    """
 
     def __init__(self, nx):
-        """ class construtor"""
+        """ Instantiation function of the neuron
 
-        # nx - no. of input features to the neuron
+        Args:
+            nx (_type_): _description_
+
+        Raises:
+            TypeError: _description_
+            ValueError: _description_
+        """
         if not isinstance(nx, int):
-            raise TypeError("nx must be a integer")
+            raise TypeError('nx must be an integer')
         if nx < 1:
-            raise ValueError("nx must be positive")
+            raise ValueError('nx must be positive')
 
-        # w - weights vector of the neuron
-        self.__W = np.random.normal(0, 1, (nx, 1))
-
-        # Initialize the bias the neuron
+        # initialize private instance attributes
+        self.__W = np.random.normal(size=(1, nx))
         self.__b = 0
-
-        # Initialize the activated output of the neuron (Prediction)
         self.__A = 0
 
-    # getter function
+        # getter function
     @property
     def W(self):
-        """getter function"""
+        """Return weights"""
         return self.__W
-
-    # # setter function
-    # @W.setter
-    # def W(self, value):
-    #     """setter function"""
-    #     self.__W = value
 
     @property
     def b(self):
-        """getter function"""
+        """Return bias"""
         return self.__b
-
-    # # setter function
-    # @b.setter
-    # def b(self, value):
-    #     """setter function"""
-    #     self.__b = value
 
     @property
     def A(self):
-        """getter function"""
+        """Return output"""
         return self.__A
 
-    # # setter function
-    # @A.setter
-    # def A(self, value):
-    #     """setter function"""
-    #     self.__A = value
-
     def forward_prop(self, X):
-        """calculating forward propagation of the neuron"""
-        # X - a np.ndarray of shape (nx, m)
-        # nx - input features to the neuron
-        # m - no. of examples
+        """Calculates the forward propagation of the neuron
 
-        # weighted sum
-        weighted_sum = np.dot(self.__W.T, X) + self.__b
-        # applying activation function
-        self.__A = 1/(1 + np.exp(-weighted_sum))
+        Args:
+            X (numpy.ndarray): matrix with the input data of shape (nx, m)
 
+        Returns:
+            numpy.ndarray: The output of the neural network.
+        """
+        z = np.matmul(self.__W, X) + self.__b
+        sigmoid = 1 / (1 + np.exp(-z))
+        self.__A = sigmoid
         return self.__A
 
     def cost(self, Y, A):
-        """ calculates cost of the model using logistic regression
-        Y - contains correct labels of input data
-        A - contains activated output of the neuron"""
-        m = Y.shape[1]
-        cost = -(1 / m) * np.sum(Y * np.log(A) +
-                                 (1 - Y) * np.log(1.0000001 - A))
+        """ Compute the of the model using logistic regression
+
+        Args:
+            Y (np.array): True values
+            A (np.array): Prediction valuesss
+
+        Returns:
+            float: cost function
+        """
+        # calculate
+        loss = - (Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
+        cost = np.mean(loss)
         return cost
