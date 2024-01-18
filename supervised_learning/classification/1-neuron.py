@@ -1,59 +1,47 @@
 #!/usr/bin/env python3
-"""This module is of a binary classification"""
+"""Class Neuron that defines a single neuron performing binary classification
+"""
+
+
 import numpy as np
 
 
 class Neuron:
-    """class that defines a single neuron perfoming binary classification"""
+    """ Class Neuron
+    """
 
     def __init__(self, nx):
-        """ class construtor"""
+        """ Instantiation function of the neuron
 
-        # nx - no. of input features to the neuron
+        Args:
+            nx (_type_): _description_
+
+        Raises:
+            TypeError: _description_
+            ValueError: _description_
+        """
         if not isinstance(nx, int):
-            raise TypeError("nx must be a integer")
+            raise TypeError('nx must be an integer')
         if nx < 1:
-            raise ValueError("nx must be positive")
+            raise ValueError('nx must be a positive')
 
-        # w - weights vector of the neuron
-        self.__W = np.random.normal(0, 1, (nx, 1))
-
-        # Initialize the bias the neuron
+        # initialize private instance attributes
+        self.__W = np.random.normal(size=(1, nx))
         self.__b = 0
-
-        # Initialize the activated output of the neuron (Prediction)
         self.__A = 0
 
-    # getter function
+        # getter function
     @property
     def W(self):
-        """getter function"""
+        """Return weights"""
         return self.__W
-
-    # # setter function
-    # @W.setter
-    # def W(self, value):
-    #     """setter function"""
-    #     self.__W = value
 
     @property
     def b(self):
-        """getter function"""
+        """Return bias"""
         return self.__b
-
-    # # setter function
-    # @b.setter
-    # def b(self, value):
-    #     """setter function"""
-    #     self.__b = value
 
     @property
     def A(self):
-        """getter function"""
+        """Return output"""
         return self.__A
-
-    # # setter function
-    # @A.setter
-    # def A(self, value):
-    #     """setter function"""
-    #     self.__A = value
