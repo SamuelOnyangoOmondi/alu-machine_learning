@@ -1,41 +1,42 @@
 #!/usr/bin/env python3
-
 """
-This module contains a function that calculates
-probability density function of a Gaussian distribution
+Calculates the probability density function of a Gaussian distribution
 """
-
 import numpy as np
-kmeans = __import__('1-kmeans').kmeans
 
 
 def pdf(X, m, S):
     """
-    initializes variables for a Gaussian Mixture Model
-
-    X: numpy.ndarray (n, d) containing the dataset
-        - n no. of data points
-        - d no. of dimensions for each data point
-    m: numpy.ndarray (d,) mean of the distribution
-    S: numpy.ndarray (d, d) covariance matrix of the distribution
-
-    return:
-        - P: numpy.ndarray (n,) the PDF values for each data point
+    Calculates the probability density function of a Gaussian distribution
+    :param X: numpy.ndarray of shape (n, d) containing the data points whose
+    PDF should be evaluated
+    :param m: numpy.ndarray of shape (d,) containing the mean of the
+    distribution
+    :param S: numpy.ndarray of shape (d, d) containing the covariance of the
+    distribution
+    :return: P, or None on failure
+        P is a numpy.ndarray of shape (n,) containing the PDF values for each
+        data point
     """
-    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         return None
-    if not isinstance(m, np.ndarray) or len(m.shape) != 1:
+    if type(m) is not np.ndarray or len(m.shape) != 1:
         return None
-    if not isinstance(S, np.ndarray) or len(S.shape) != 2:
+    if type(S) is not np.ndarray or len(S.shape) != 2:
         return None
-    n, d = X.shape
-    if d != m.shape[0] or d != S.shape[0] or d != S.shape[1]:
+    if X.shape[1] != m.shape[0] or X.shape[1] != S.shape[0]:
         return None
-    S_det = np.linalg.det(S)
-    S_inv = np.linalg.inv(S)
-    fac = 1 / np.sqrt(((2 * np.pi) ** d) * S_det)
-    X_m = X - m
-    X_m_dot = np.dot(X_m, S_inv)
-    X_m_dot_X_m = np.sum(X_m_dot * X_m, axis=1)
-    P = fac * np.exp(-0.5 * X_m_dot_X_m)
+    if S.shape[0] != S.shape[1]:
+        return None
+    d = S.shape[0]
+
+    det = np.linalg.det(S)
+    inv = np.linalg.inv(S)
+    first = 1 / ((2 * np.pi) ** (d / 2) * np.sqrt(det))
+    second = np.dot((X - m), inv)
+    third = np.sum(second * (X - m) / -2, axis=1)
+    P = first * np.exp(third)
+
+    P = np.maximum(P, 1e-300)
+
     return P
