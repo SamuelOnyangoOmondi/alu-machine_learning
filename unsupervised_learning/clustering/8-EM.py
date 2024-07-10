@@ -1,58 +1,66 @@
 #!/usr/bin/env python3
-
 """
-This module contains a function that perfoms
-expectation maximization for a GMM
+Performs the expectation maximization for a GMM
 """
-
 import numpy as np
 initialize = __import__('4-initialize').initialize
 expectation = __import__('6-expectation').expectation
 maximization = __import__('7-maximization').maximization
 
 
-def expectation_maximization(X, k,
-                             iterations=1000, tol=1e-5, verbose=False):
+def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     """
-    initializes variables for a Gaussian Mixture Model
+    Performs the expectation maximization for a GMM
+    :param X: numpy.ndarray of shape (n, d) containing the data set
+    :param k: positive integer containing the number of clusters
+    :param iterations: positive integer containing the maximum number of
+    iterations for the algorithm
+    :param tol: non-negative float containing tolerance of the log
+    likelihood, used to determine early stopping i.e. if the difference is
+    less than or equal to tol you should stop the algorithm
+    :param verbose: a boolean that determines if you should print information
+    about the algorithm
+    :return: pi, m, S, g, l, or None, None, None, None, None on failure
+        pi is a numpy.ndarray of shape (k,) containing the priors for each
+        cluster
+        m is a numpy.ndarray of shape (k, d) containing the centroid means for
+        each cluster
+        S is a numpy.ndarray of shape (k, d, d) containing the covariance
+        matrices for each cluster
+        g is a numpy.ndarray of shape (k, n) containing the probabilities for
+        each data point in each cluster
+        l is the log likelihood of the model
+    """
+    if type(X) is not np.ndarray or len(X.shape) != 2:
+        return None, None, None, None, None
+    if type(k) is not int or k <= 0:
+        return None, None, None, None, None
+    if type(iterations) is not int or iterations <= 0:
+        return None, None, None, None, None
+    if type(tol) is not float or tol < 0:
+        return None, None, None, None, None
+    if type(verbose) is not bool:
+        return None, None, None, None, None
 
-    X: numpy.ndarray (n, d) containing the dataset
-        - n no. of data points
-        - d no. of dimensions for each data point
-    k: positive integer containing the number of clusters
-    iterations: positive integer containing the maximum number of iterations
-    tol: non-negative float containing tolerance of the log likelihood
-    verbose: boolean that determines if output should be printed
-    returns:
-        pi, m, S, g, l or None, None, None, None, None on failure
-        - pi: numpy.ndarray (k,) containing the priors for each cluster
-        - m: numpy.ndarray (k, d) containing centroid means for each cluster
-        - S: numpy.ndarray (k, d, d) covariance matrices for each cluster
-        - g: numpy.ndarray (k, n) containing the posterior
-            probabilities for each data point in each cluster
-        - l: log likelihood of the model
-    """
-    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
-        return None, None, None, None, None
-    if not isinstance(k, int) or k <= 0:
-        return None, None, None, None, None
-    if not isinstance(iterations, int) or iterations <= 0:
-        return None, None, None, None, None
-    if not isinstance(tol, float) or tol < 0:
-        return None, None, None, None, None
-    if not isinstance(verbose, bool):
-        return None, None, None, None, None
-    n, d = X.shape
-    pi, m, S = initialize(X, k)
-    g, l = expectation(X, pi, m, S)
-    if verbose:
-        print("Log Likelihood after {} iterations: {}".format(0, l))
-    for i in range(1, iterations + 1):
-        pi, m, S = maximization(X, g)
-        g, l_new = expectation(X, pi, m, S)
-        if verbose:
-            print("Log Likelihood after {} iterations: {}".format(i, l_new))
-        if abs(l_new - l) < tol:
+    i = 0
+    l_prev = 0
+    pi, mean, cov = initialize(X, k)
+    g, log_like = expectation(X, pi, mean, cov)
+    while i < iterations:
+        if (np.abs(l_prev - log_like)) <= tol:
             break
-        l = l_new
-    return pi, m, S, g, l
+        l_prev = log_like
+
+        if verbose is True and (i % 10 == 0):
+            rounded = log_like.round(5)
+            print("Log Likelihood after {} iterations: {}".format(i, rounded))
+
+        pi, mean, cov = maximization(X, g)
+        g, log_like = expectation(X, pi, mean, cov)
+        i += 1
+
+    if verbose is True:
+        rounded = log_like.round(5)
+        print("Log Likelihood after {} iterations: {}".format(i, rounded))
+
+    return pi, mean, cov, g, log_like
